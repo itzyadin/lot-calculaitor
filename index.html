@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Fast forex lot size calculator with pair search, market and limit/stop orders, leverage and margin.">
+<meta name="description" content="Fast lot size calculator for forex, gold and index CFDs. Enter entry, stop loss, risk and balance.">
 <meta name="theme-color" content="#0e1822">
 <title>Lot Size Calculator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,12 +30,13 @@ header p{color:var(--mute);font-size:.88rem}
 @media (min-width:56em){.wrap{padding-bottom:2rem}.grid{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:1.6rem;align-items:start}.res{position:sticky;top:1.5rem}.bar{display:none!important}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:1.3rem;padding:1.3rem;box-shadow:var(--shadow)}
 h2{font-size:1rem;font-weight:800;margin:0 0 .9rem;display:flex;align-items:center;gap:.6rem}
+h2 .clr{order:1;font:inherit;font-size:.8rem;font-weight:700;color:var(--mute);background:var(--soft);border:1.5px solid var(--line);border-radius:2rem;padding:.2rem .8rem;cursor:pointer}
+h2 .clr:hover{color:var(--acc);border-color:var(--acc)}
 h2::after{content:"";flex:1;height:1px;background:var(--line)}
-.sp{height:1.3rem}
 .row{display:grid;gap:.9rem;grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:.9rem}
 .f{display:flex;flex-direction:column;gap:.35rem;min-width:0;margin-bottom:.9rem}.row .f{margin-bottom:0}
 label,.lbl{font-size:.84rem;color:var(--mute);font-weight:600}
-.hint{font-size:.78rem;color:var(--mute);margin-top:-.1rem}
+.hint{font-size:.78rem;color:var(--mute)}
 input,summary{font:inherit}
 input{width:100%;font-size:1.08rem;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink);background:var(--soft);border:1.5px solid var(--line);border-radius:.85rem;padding:.7rem .85rem;min-height:3rem;outline:none;transition:border-color .15s,box-shadow .15s,background .15s}
 input::placeholder{color:var(--mute);opacity:.55;font-weight:500}
@@ -43,22 +44,14 @@ input:focus{border-color:var(--acc);box-shadow:0 0 0 .22rem var(--accsoft);backg
 .ig{position:relative}.ig i{position:absolute;top:50%;transform:translateY(-50%);color:var(--mute);font-style:normal;font-weight:700;pointer-events:none}
 .ig.l input{padding-left:2.1rem}.ig.l i{left:.85rem}.ig.r input{padding-right:3.3rem}.ig.r i{right:.85rem;font-size:.85rem}
 .seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;background:var(--soft);border:1.5px solid var(--line);border-radius:.95rem;padding:.22rem;gap:.2rem}
-.seg button{font:inherit;font-size:.96rem;font-weight:700;border:0;background:transparent;color:var(--mute);border-radius:.72rem;min-height:2.6rem;cursor:pointer;transition:background .15s,color .15s}
+.seg button{font:inherit;font-size:.98rem;font-weight:700;border:0;background:transparent;color:var(--mute);border-radius:.72rem;min-height:2.7rem;cursor:pointer;transition:background .15s,color .15s}
 .seg button[aria-pressed=true]{background:linear-gradient(135deg,var(--acc2),var(--acc));color:var(--on);box-shadow:0 .25rem .8rem var(--glow)}
 button:focus-visible{outline:.15rem solid var(--acc);outline-offset:.12rem}
 .chips{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.1rem}
 .chips button{font:inherit;font-size:.82rem;font-weight:700;border:1.5px solid var(--line);background:var(--soft);color:var(--ink);border-radius:2rem;padding:.28rem .75rem;cursor:pointer;transition:all .15s}
 .chips button:hover{border-color:var(--acc)}.chips button.on{background:var(--accsoft);border-color:var(--acc);color:var(--acc)}
-.combo{position:relative}
-.combo input{padding-left:2.5rem;font-size:1.15rem;font-weight:800;letter-spacing:.01em}
-.combo svg{position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:var(--mute);pointer-events:none}
-.list{position:absolute;left:0;right:0;top:calc(100% + .4rem);max-height:19rem;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:1rem;box-shadow:var(--shadow);z-index:20;padding:.35rem}
-.gh{font-size:.76rem;font-weight:700;color:var(--mute);padding:.55rem .7rem .25rem}
-.opt{display:flex;justify-content:space-between;align-items:center;padding:.6rem .7rem;border-radius:.7rem;cursor:pointer}
-.opt span{font-size:.78rem;color:var(--mute)}
-.opt:hover,.opt.act{background:var(--soft)}.opt.sel b{color:var(--acc)}
 details{margin-top:.2rem}summary{cursor:pointer;color:var(--mute);font-weight:600;font-size:.88rem;padding:.3rem 0}
-details .f{margin-top:.6rem;margin-bottom:0}
+details .f{margin-top:.7rem;margin-bottom:0}
 .hero{text-align:center;padding:1.3rem .6rem 1.2rem;border-radius:1.1rem;background:linear-gradient(160deg,var(--accsoft),transparent 130%);border:1px solid var(--line);margin-bottom:1rem}
 .hero small{display:block;color:var(--mute);font-weight:700;font-size:.95rem}
 .hero strong{display:block;font-size:clamp(3.2rem,10vw,5rem);line-height:1.05;font-weight:800;letter-spacing:-.04em;color:var(--acc);font-variant-numeric:tabular-nums;text-shadow:0 0 2.5rem var(--glow)}
@@ -67,7 +60,7 @@ details .f{margin-top:.6rem;margin-bottom:0}
 .track{height:.6rem;border-radius:1rem;background:var(--soft);overflow:hidden;border:1px solid var(--line)}
 .track i{display:block;height:100%;width:0;border-radius:1rem;background:linear-gradient(90deg,var(--acc2),var(--acc));transition:width .25s}.track i.over{background:var(--sell)}
 .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
-.st{background:var(--soft);border-radius:.9rem;padding:.7rem .9rem;border:1px solid transparent}
+.st{background:var(--soft);border-radius:.9rem;padding:.7rem .9rem}
 .st small{display:block;color:var(--mute);font-size:.78rem;font-weight:600}.st b{font-size:1.15rem;font-weight:800;font-variant-numeric:tabular-nums}
 .st.g b{color:var(--good)}.st.r b{color:var(--sell)}
 .warns{display:grid;gap:.45rem;margin-top:.8rem}.warns:empty{display:none}
@@ -82,25 +75,21 @@ details .f{margin-top:.6rem;margin-bottom:0}
 <body>
 <div class="wrap">
   <header><div class="logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7h14M5 7l-3 7a3 3 0 0 0 6 0L5 7zM19 7l-3 7a3 3 0 0 0 6 0l-3-7z"/></svg></div>
-    <div><h1>Lot size calculator</h1><p>Know your size before you click</p></div></header>
+    <div><h1>Lot size calculator</h1><p>Limit or stop order: just the prices</p></div></header>
   <div class="grid">
     <section class="card" aria-label="Trade setup">
-      <h2>Trade</h2>
-      <div class="f"><label for="q">Pair</label>
-        <div class="combo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input id="q" autocomplete="off" autocapitalize="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="list" placeholder="Search: EURUSD, gold, yen…">
-        <div class="list" id="list" role="listbox" hidden></div></div></div>
-      <div class="f"><span class="lbl">Order type</span>
-        <div class="seg" data-g="type"><button data-v="market">Market</button><button data-v="pending">Limit / Stop</button></div></div>
+      <h2>Trade<button type="button" class="clr" id="clr">Clear</button></h2>
+      <div class="f"><span class="lbl">Market</span>
+        <div class="seg" data-g="type"><button data-v="forex">Forex</button><button data-v="gold">Gold</button><button data-v="idx">Indices</button></div>
+        <div class="hint" id="tH"></div></div>
+      <div class="f"><label for="entry">Entry price</label><input id="entry" inputmode="decimal" autocomplete="off"></div>
+      <div class="f"><span class="lbl">Enter stop loss and take profit as</span>
+        <div class="seg" data-g="mode"><button data-v="pips">Pips</button><button data-v="price">Price</button></div></div>
       <div class="row">
-        <div class="f"><label for="entry" id="eL">Market price</label><input id="entry" inputmode="decimal" autocomplete="off"></div>
-        <div class="f"><label for="sl" id="slL">Stop loss</label><div class="ig r"><input id="sl" inputmode="decimal" autocomplete="off"><i id="slS">pips</i></div></div>
+        <div class="f"><label for="sl" id="slL">Stop loss</label><div class="ig r"><input id="sl" inputmode="decimal" autocomplete="off"><i id="slS"></i></div></div>
+        <div class="f"><label for="tp" id="tpL">Take profit (optional)</label><div class="ig r"><input id="tp" inputmode="decimal" autocomplete="off"><i id="tpS"></i></div></div>
       </div>
-      <div class="row">
-        <div class="f"><label for="tp">Take profit (optional)</label><div class="ig r"><input id="tp" inputmode="decimal" autocomplete="off"><i id="tpS">pips</i></div></div>
-        <div class="f"><span class="lbl">Enter stop and target as</span><div class="seg" data-g="mode"><button data-v="pips">Pips</button><button data-v="price">Price</button></div></div>
-      </div>
-      <div class="hint" id="eH" style="margin-bottom:1rem"></div>
+      <div class="hint" id="dH" style="margin:-.3rem 0 1rem"></div>
 
       <h2>Account</h2>
       <div class="row">
@@ -110,24 +99,28 @@ details .f{margin-top:.6rem;margin-bottom:0}
       <div class="chips" id="rc" style="margin:-.2rem 0 1rem"><button data-v="0.5">0.5%</button><button data-v="1">1%</button><button data-v="2">2%</button><button data-v="3">3%</button></div>
       <div class="f"><label for="lev">Leverage</label><div class="ig l"><i>1:</i><input id="lev" inputmode="numeric" autocomplete="off"></div>
         <div class="chips" id="lc"><button data-v="30">30</button><button data-v="50">50</button><button data-v="100">100</button><button data-v="200">200</button><button data-v="500">500</button><button data-v="1000">1000</button></div></div>
-      <details><summary>Advanced</summary><div class="f"><label for="pv">Pip value for 1 lot in USD (auto, editable)</label><input id="pv" inputmode="decimal" autocomplete="off" placeholder="Auto"></div></details>
+      <details><summary>Advanced</summary>
+        <div class="f"><label for="cs">Contract size per lot</label><input id="cs" inputmode="decimal" autocomplete="off"><div class="hint">Forex 100,000 · Gold 100 oz · Indices usually 1 ($1 per point). Check your broker.</div></div>
+        <div class="f"><label for="ps">Pip size</label><input id="ps" inputmode="decimal" autocomplete="off"><div class="hint">The price move that counts as 1 pip. Forex 0.0001 (JPY pairs 0.01) · Gold 0.1 · Indices 1 point. Used when you type stop loss and take profit in pips.</div></div>
+        <div class="f"><label for="qr">Quote currency per 1 USD</label><input id="qr" inputmode="decimal" autocomplete="off" placeholder="Leave empty for pairs ending in USD"><div class="hint">Only for pairs quoted in another currency, e.g. USD/CAD rate for EUR/CAD. JPY pairs are handled automatically.</div></div>
+      </details>
     </section>
 
     <section class="card res" aria-live="polite" aria-label="Result">
-      <div class="hero"><small id="ttl">Position size</small><strong id="lots">–</strong><span id="units">Enter your price and stop loss</span></div>
+      <div class="hero"><small id="ttl">Position size</small><strong id="lots">–</strong><span id="units">Enter your entry and stop loss</span></div>
       <div class="meter"><div class="mh"><span>Margin used</span><b id="mp">–</b></div><div class="track"><i id="mb"></i></div></div>
       <div class="stats">
         <div class="st r"><small>Money at risk</small><b id="riskAmt">–</b></div>
-        <div class="st"><small>Stop distance</small><b id="slPips">–</b></div>
+        <div class="st"><small>Stop distance</small><b id="dist">–</b></div>
         <div class="st"><small>Margin required</small><b id="mg">–</b></div>
         <div class="st"><small>Free margin after</small><b id="fm">–</b></div>
         <div class="st g"><small>Potential profit</small><b id="reward">–</b></div>
         <div class="st"><small>Reward to risk</small><b id="rr">–</b></div>
-        <div class="st"><small>Pip value (this size)</small><b id="pvT">–</b></div>
+        <div class="st"><small id="uL">Value per pip (this size)</small><b id="uV">–</b></div>
         <div class="st"><small>Max lots at this leverage</small><b id="ml">–</b></div>
       </div>
       <div class="warns" id="warns"></div>
-      <p class="note">Lots are rounded down to 0.01 so you never risk more than planned. Buy or sell does not change the size; direction is read from your entry and stop loss. Cross-pair values use reference exchange rates, so override the pip value if your broker differs.</p>
+      <p class="note">Lots are rounded down to 0.01 so you never risk more than planned. The result depends only on your prices (or pips) and the market type, so it never changes between pairs with the same price gap. Margin is an estimate; your broker’s figure may differ slightly.</p>
     </section>
   </div>
 </div>
@@ -135,104 +128,79 @@ details .f{margin-top:.6rem;margin-bottom:0}
 
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const MAJ=['EURUSD','GBPUSD','USDJPY','AUDUSD','USDCAD','USDCHF','NZDUSD'];
-const CROSS='EURGBP EURJPY EURCHF EURAUD EURCAD EURNZD GBPJPY GBPCHF GBPAUD GBPCAD GBPNZD AUDJPY AUDCHF AUDCAD AUDNZD NZDJPY NZDCHF NZDCAD CADJPY CADCHF CHFJPY'.split(' ');
-const EXO='USDMXN USDZAR USDTRY USDSEK USDNOK USDDKK USDSGD USDHKD USDPLN USDILS USDCNH'.split(' ');
-const POP=['EURUSD','GBPUSD','USDJPY','XAUUSD','AUDUSD','USDCAD','USDCHF','NZDUSD','GBPJPY','EURJPY','EURGBP','AUDJPY'];
-const ALL=[...POP,...[...MAJ,...CROSS,...EXO].filter(p=>!POP.includes(p))];
-const kind=p=>p==='XAUUSD'?'Gold':MAJ.includes(p)?'Major':EXO.includes(p)?'Exotic':'Cross';
-const info=p=>p==='XAUUSD'?{pip:.1,u:100,b:'XAU',q:'USD'}:{pip:p.slice(3)==='JPY'?.01:.0001,u:1e5,b:p.slice(0,3),q:p.slice(3)};
-const disp=p=>p==='XAUUSD'?'XAU/USD':p.slice(0,3)+'/'+p.slice(3);
-const REF={EUR:1.16,GBP:1.33,AUD:.66,NZD:.59,JPY:1/152,CAD:1/1.39,CHF:1/.8};
-const usd=c=>c==='USD'?1:REF[c];
-const D={pair:'EURUSD',type:'market',mode:'pips',entry:'',sl:'',tp:'',bal:'10000',risk:'1',lev:'100',pv:''};
+const T={forex:{n:'Forex',c:1e5,ph:'1.09444',h:'Any forex pair. 1 lot = 100,000 units.'},
+  gold:{n:'Gold',c:100,ph:'2650.00',h:'XAUUSD. 1 lot = 100 oz.'},
+  idx:{n:'Indices',c:1,ph:'21000.0',h:'NAS100, SPX500, US30 and similar CFDs. 1 lot = $1 per point by default.'}};
+const D={type:'forex',mode:'pips',entry:'',sl:'',tp:'',bal:'10000',risk:'1',lev:'100',cs:'',qr:'',ps:''};
 let S={...D};
-try{Object.assign(S,JSON.parse(localStorage.getItem('lotcalc2')||'{}'))}catch(e){}
-if(!ALL.includes(S.pair))S.pair='EURUSD';
+try{Object.assign(S,JSON.parse(localStorage.getItem('lotcalc3')||'{}'))}catch(e){}
+if(!T[S.type])S.type='forex';
 const num=v=>parseFloat(String(v).replace(',','.'));
+const numM=v=>{v=String(v).replace(/[\s$]/g,'');return parseFloat(/^\d{1,3}(,\d{3})+(\.\d+)?$/.test(v)?v.replace(/,/g,''):v.replace(',','.'))};
 const fmt=(n,d=2)=>n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
 const money=n=>(n<0?'-':'')+'$'+fmt(Math.abs(n));
 const out=(id,t)=>$(id).textContent=t;
 
 function calc(){
-  const i=info(S.pair),isP=S.mode==='pips';
-  const E=num(S.entry),sl=num(S.sl),tp=num(S.tp),bal=num(S.bal),rk=num(S.risk),lev=num(S.lev),W=[];
+  const t=S.type,E=num(S.entry),sl=num(S.sl),tp=num(S.tp),bal=numM(S.bal),rk=num(S.risk),lev=num(S.lev),W=[];
   const hasE=E>0,hasSL=sl>0;
-  let long=null;
-  if(!isP&&hasE&&hasSL&&sl!==E)long=sl<E;
-  const side=long===null?'':long?' · Long':' · Short';
-  const head=disp(S.pair)+side;out('#ttl',head);out('#barT',head);
-  const slp=!hasSL?NaN:isP?sl:hasE?Math.abs(E-sl)/i.pip:NaN;
-  let tpp=NaN;
-  if(tp>0){tpp=isP?tp:hasE?Math.abs(tp-E)/i.pip:NaN;
-    if(!isP&&long!==null&&(long?tp<=E:tp>=E))W.push('Take profit should be '+(long?'above':'below')+' your entry for a '+(long?'long':'short')+'.')}
+  const isP=S.mode==='pips';
+  const long=!isP&&hasE&&hasSL&&sl!==E?sl<E:null;
+  const head=T[t].n+(long===null?'':long?' · Long':' · Short');out('#ttl',head);out('#barT',head);
+  const contract=numM(S.cs)>0?numM(S.cs):T[t].c;
+  let rate=num(S.qr)>0?num(S.qr):1;
+  if(t==='forex'&&!(num(S.qr)>0)&&E>20){rate=E;W.push('JPY pair detected. Converted at USD/JPY = '+fmt(E,3)+' (your entry). For EUR/JPY or GBP/JPY, enter the real USD/JPY rate in Advanced.')}
+  const V=contract/rate;                       // USD per 1.00 price move, per lot
+  const pip=num(S.ps)>0?num(S.ps):t==='forex'?(E>20?.01:.0001):t==='gold'?.1:1;
+  const d=isP?sl*pip:Math.abs(E-sl),dtp=tp>0?(isP?tp*pip:Math.abs(tp-E)):NaN;
   if(!isP&&hasE&&hasSL&&sl===E)W.push('Stop loss is the same as your entry price.');
-  const pv=num(S.pv)>0?num(S.pv):(hasE?(i.q==='USD'?i.u*i.pip:i.b==='USD'?i.u*i.pip/E:i.u*i.pip*usd(i.q)):NaN);
-  const notion=hasE?(i.q==='USD'?i.u*E:i.b==='USD'?i.u:i.u*usd(i.b)):NaN;
-  const reset=m=>{['#lots','#barL'].forEach(k=>out(k,'–'));out('#units',m);['#riskAmt','#slPips','#mg','#fm','#reward','#rr','#pvT','#ml','#mp','#barM'].forEach(k=>out(k,'–'));$('#mb').style.width='0';$('#warns').innerHTML=W.map(w=>`<div>${w}</div>`).join('')};
+  if(long!==null&&tp>0&&(long?tp<=E:tp>=E))W.push('Take profit should be '+(long?'above':'below')+' your entry for a '+(long?'long':'short')+'.');
+  const show=()=>$('#warns').innerHTML=W.map(w=>`<div>${w}</div>`).join('');
+  const reset=m=>{['#lots','#barL'].forEach(k=>out(k,'–'));out('#units',m);
+    ['#riskAmt','#dist','#mg','#fm','#reward','#rr','#uV','#ml','#mp','#barM'].forEach(k=>out(k,'–'));$('#mb').style.width='0';show()};
+  out('#uL','Value per '+(t==='idx'?'point':'pip')+' (this size)');
   if(!(bal>0&&rk>0))return reset('Enter your balance and risk');
   if(!hasE)return reset('Enter your entry price');
-  if(!(slp>0))return reset('Enter your stop loss');
+  if(!(d>0))return reset('Enter your stop loss'+(isP?' in '+(t==='idx'?'points':'pips'):' price'));
   if(rk>5)W.push('Risking more than 5% per trade is aggressive.');
-  const risk=bal*rk/100,lots=Math.floor(risk/(slp*pv)*100+1e-9)/100,act=lots*slp*pv;
+  const risk=bal*rk/100,lots=Math.floor(risk/(d*V)*100+1e-9)/100,act=lots*d*V;
   out('#lots',lots.toFixed(2));out('#barL',lots.toFixed(2)+' lots');
-  out('#units',lots===0?'Too small for 0.01 lot. Widen the stop or raise the risk.':fmt(lots*i.u,0)+(S.pair==='XAUUSD'?' oz':' units')+' · '+fmt(lots*10,1)+' mini · '+fmt(lots*100,0)+' micro');
-  out('#riskAmt',money(act));out('#slPips',fmt(slp,1)+' pips');out('#pvT',money(lots*pv));
-  out('#reward',isFinite(tpp)?money(lots*tpp*pv):'–');out('#rr',isFinite(tpp)?'1 : '+fmt(tpp/slp):'–');
-  if(lev>0){const mg=lots*notion/lev,ml=Math.floor(bal*lev/notion*100)/100,pct=mg/bal*100;
+  out('#units',lots===0?'Too small for 0.01 lot. Widen the stop or raise the risk.':
+    t==='forex'?fmt(lots*contract,0)+' units · '+fmt(lots*10,1)+' mini · '+fmt(lots*100,0)+' micro':
+    t==='gold'?fmt(lots*contract,1)+' oz':money(lots*V)+' per 1.00 point');
+  out('#riskAmt',money(act));
+  out('#dist',fmt(d/pip,1)+(t==='idx'?' points':' pips'));
+  out('#uV',money(lots*V*pip));
+  out('#reward',isFinite(dtp)?money(lots*dtp*V):'–');out('#rr',isFinite(dtp)?'1 : '+fmt(dtp/d):'–');
+  if(lev>0){const notion=rate===1?contract*E:contract,mg=lots*notion/lev,ml=Math.floor(bal*lev/notion*100)/100,pct=mg/bal*100;
     out('#mg',money(mg));out('#fm',money(bal-mg));out('#ml',ml.toFixed(2)+' lots');out('#mp',fmt(pct,1)+'%');out('#barM',money(mg));
     const b=$('#mb');b.style.width=Math.min(100,pct)+'%';b.classList.toggle('over',pct>100);
-    if(mg>bal)W.push('This size needs '+money(mg)+' margin, more than your balance. At 1:'+lev+' you can open at most '+ml.toFixed(2)+' lots. Widen your risk plan, tighten the stop or use more leverage.');
+    if(mg>bal)W.push('This size needs '+money(mg)+' margin, more than your balance. At 1:'+lev+' you can open at most '+ml.toFixed(2)+' lots.');
     else if(pct>50)W.push('This trade would use '+fmt(pct,0)+'% of your balance as margin.');
   }else{['#mg','#fm','#ml','#mp','#barM'].forEach(k=>out(k,'–'));$('#mb').style.width='0'}
-  $('#warns').innerHTML=W.map(w=>`<div>${w}</div>`).join('');
+  show();
 }
+function save(){try{localStorage.setItem('lotcalc3',JSON.stringify(S))}catch(e){}}
 function syncUI(){
-  ['entry','sl','tp','bal','risk','lev','pv'].forEach(k=>{if($('#'+k).value!==S[k])$('#'+k).value=S[k]});
-  if(document.activeElement!==$('#q'))$('#q').value=disp(S.pair);
+  ['entry','sl','tp','bal','risk','lev','cs','qr','ps'].forEach(k=>{if($('#'+k).value!==S[k])$('#'+k).value=S[k]});
   $$('.seg').forEach(g=>[...g.children].forEach(b=>b.setAttribute('aria-pressed',S[g.dataset.g]===b.dataset.v)));
-  const mk=S.type==='market',pr=S.mode==='pips',i=info(S.pair);
-  out('#eL',mk?'Market price':'Pending entry price');
-  out('#eH',mk?'The price you are entering at right now.':'The price where your limit or stop order triggers.');
-  out('#slL','Stop loss'+(pr?'':' price'));out('#slS',pr?'pips':'');out('#tpS',pr?'pips':'');
-  $('#entry').placeholder='e.g. '+(S.pair==='XAUUSD'?'2650.00':i.q==='JPY'?'150.250':'1.08500');
+  const pr=S.mode==='pips',u=S.type==='idx'?'pts':'pips';
+  out('#tH',T[S.type].h);$('#entry').placeholder='e.g. '+T[S.type].ph;
+  $('#sl').placeholder='e.g. '+(pr?(S.type==='idx'?'50':'20'):T[S.type].ph);$('#tp').placeholder=pr?'':'optional';
+  out('#slL','Stop loss'+(pr?'':' price'));out('#tpL','Take profit'+(pr?' (optional)':' price (optional)'));out('#slS',pr?u:'');out('#tpS',pr?u:'');
+  out('#dH',pr?'Counted from your entry price, so buy or sell does not matter.':'Buy or sell is detected for you: a stop below your entry is a long, above is a short.');
+  $('#ps').placeholder=(S.type==='gold'?'0.1':S.type==='idx'?'1':'0.0001')+' (auto)';
+  $('#cs').placeholder=fmt(T[S.type].c,0)+' (auto)';
   $$('#rc button').forEach(b=>b.classList.toggle('on',num(S.risk)===+b.dataset.v));
   $$('#lc button').forEach(b=>b.classList.toggle('on',num(S.lev)===+b.dataset.v));
 }
-function update(){syncUI();calc();try{localStorage.setItem('lotcalc2',JSON.stringify(S))}catch(e){}}
-
-// inputs
-['entry','sl','tp','bal','risk','lev','pv'].forEach(k=>$('#'+k).addEventListener('input',e=>{S[k]=e.target.value;if(k==='risk'||k==='lev')syncUI();calc();try{localStorage.setItem('lotcalc2',JSON.stringify(S))}catch(x){}}));
-$$('.seg').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const k=g.dataset.g;
-  if(k==='mode'&&S.mode!==b.dataset.v){S.sl='';S.tp=''}S[k]=b.dataset.v;update()}));
+function update(){syncUI();calc();save()}
+['entry','sl','tp','bal','risk','lev','cs','qr','ps'].forEach(k=>$('#'+k).addEventListener('input',e=>{S[k]=e.target.value;if(k==='risk'||k==='lev')syncUI();calc();save()}));
+$$('.seg').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button'),k=g.dataset.g;if(!b||b.dataset.v===S[k])return;
+  S[k]=b.dataset.v;if(k==='type'){S.entry=S.sl=S.tp=S.cs=S.qr=S.ps=''}else{S.sl=S.tp=''}update()}));
 $('#rc').addEventListener('click',e=>{if(e.target.dataset.v){S.risk=e.target.dataset.v;update()}});
 $('#lc').addEventListener('click',e=>{if(e.target.dataset.v){S.lev=e.target.dataset.v;update()}});
-
-// pair search
-const q=$('#q'),L=$('#list');let items=[],act=-1;
-const norm=s=>s.toLowerCase().replace(/[^a-z0-9]/g,'');
-function render(term){
-  const t=norm(term);
-  items=ALL.filter(p=>!t||norm(p).includes(t)||(p==='XAUUSD'&&['gold','xau'].some(a=>a.startsWith(t))));
-  if(t)items.sort((a,b)=>norm(b).startsWith(t)-norm(a).startsWith(t));
-  let h='';
-  items.forEach((p,k)=>{
-    if(!t&&k===0)h+='<div class="gh">Popular</div>';
-    if(!t&&k===POP.length)h+='<div class="gh">All pairs</div>';
-    h+=`<div role="option" class="opt${p===S.pair?' sel':''}${k===act?' act':''}" data-p="${p}"><b>${disp(p)}</b><span>${kind(p)}</span></div>`});
-  L.innerHTML=h||'<div class="gh">No pair found</div>';L.hidden=false;q.setAttribute('aria-expanded','true');
-}
-function closeList(){L.hidden=true;q.setAttribute('aria-expanded','false');act=-1;q.value=disp(S.pair)}
-function pick(p){if(!p)return;if(p!==S.pair){S.pair=p;S.entry='';if(S.mode==='price'){S.sl='';S.tp=''}}q.blur();closeList();update()}
-q.addEventListener('focus',()=>{q.select();act=-1;render('')});
-q.addEventListener('input',()=>{act=-1;render(q.value)});
-q.addEventListener('blur',closeList);
-q.addEventListener('keydown',e=>{
-  if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();act=(act+(e.key==='ArrowDown'?1:-1)+items.length)%items.length;render(q.value===disp(S.pair)?'':q.value);const a=L.querySelector('.act');a&&a.scrollIntoView({block:'nearest'})}
-  else if(e.key==='Enter'){e.preventDefault();pick(items[act>=0?act:0])}
-  else if(e.key==='Escape')q.blur()});
-L.addEventListener('mousedown',e=>e.preventDefault());
-L.addEventListener('click',e=>{const o=e.target.closest('.opt');if(o)pick(o.dataset.p)});
+$('#clr').addEventListener('click',()=>{S.entry=S.sl=S.tp='';update();$('#entry').focus()});
 update();
 </script>
 </body>
